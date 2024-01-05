@@ -1,4 +1,4 @@
-package edu.daidp.shoppingwebapp.entity;
+package edu.daidp.shoppingwebapp.common.constant;
 
 import edu.daidp.shoppingwebapp.common.constant.Permission;
 import lombok.Getter;

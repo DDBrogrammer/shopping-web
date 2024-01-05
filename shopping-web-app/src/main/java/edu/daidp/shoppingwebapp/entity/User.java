@@ -1,5 +1,6 @@
 package edu.daidp.shoppingwebapp.entity;
 
+import edu.daidp.shoppingwebapp.common.constant.Role;
 import edu.daidp.shoppingwebapp.common.constant.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -22,6 +24,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
+
+    @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+    private Set<Address> addresses;
 
 
     @Id
@@ -41,7 +46,7 @@ public class User implements UserDetails {
     private  String lastName;
 
     @NotBlank(message = "phone number can't be blank")
-    @Column(name = "phone_no",unique = true,nullable = false)
+    @Column(unique = true,nullable = false)
     private  String phoneNo;
 
     @NotBlank(message = "email can't be blank")
@@ -58,9 +63,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @JoinColumn(name = "user_status_id", nullable = false)
     private UserStatus userStatus;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

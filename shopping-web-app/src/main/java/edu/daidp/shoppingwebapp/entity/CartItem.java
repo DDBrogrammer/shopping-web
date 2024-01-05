@@ -6,40 +6,39 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
-@Table(name = "category")
+@Table(name = "cartItem")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private BigInteger id;
 
-    @OneToMany(mappedBy="parentCategory",fetch=FetchType.LAZY)
-    private Set<Category> childCategories;
+    @ManyToOne
+    @JoinColumn(name = "cartId", nullable = false)
+    private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id", nullable = true)
-    private Category parentCategory;
+    @JoinColumn(name = "productId", nullable = false)
+    private Product product;
 
+    private BigDecimal price;
 
-    @OneToMany(mappedBy="category",fetch=FetchType.LAZY)
-    private Set<ProductCategory> productCategories;
+    private BigDecimal discount;
 
-    private String title;
+    private BigInteger quantity;
 
-    private String slug;
-
-    private String content;
     private Timestamp createAt;
 
     private Timestamp updateAt;
+
 }

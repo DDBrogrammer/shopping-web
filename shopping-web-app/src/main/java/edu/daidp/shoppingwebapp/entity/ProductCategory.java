@@ -9,29 +9,23 @@ import lombok.NoArgsConstructor;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "review")
+@Table(name = "product_category")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
-
+public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private BigInteger id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "replyReviewId")
-    private Review replyReview;
-
     @ManyToOne
-    @JoinColumn(name="userId", nullable=false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "productId", nullable = false)
+    @JoinColumn(name="productId", nullable=false)
     private Product product;
 
-    private String content;
+    @ManyToOne
+    @JoinColumn(name="categoryId", nullable=false)
+    private Category category;
 
 }
