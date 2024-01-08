@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import static edu.daidp.shoppingwebapp.common.constant.Role.ADMIN;
+import static edu.daidp.shoppingwebapp.common.constant.Role.CUSTOMER;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -25,6 +26,7 @@ public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
+            "/api/products/**",
             "/api/addresses/",
             "/api/tracking/**",
             "/v2/api-docs",
@@ -48,10 +50,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                                                req.requestMatchers(WHITE_LIST_URL)
                                                        .permitAll()
-                                                       .requestMatchers("/api/shipments/**",
-                                                                        "/api/LEADER/hubs/findAllTransactionPoint")
+                                                       .requestMatchers("/api/carts/**")
                                                        .hasAnyRole(
-                                                               ADMIN.name())
+                                                               CUSTOMER.name())
                                                        .anyRequest()
                                                        .authenticated()
                 )

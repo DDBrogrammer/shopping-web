@@ -25,6 +25,21 @@ import java.util.Set;
 @NoArgsConstructor
 public class User implements UserDetails {
 
+    @Override
+    public String toString() {
+        return "User{" +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", userStatus=" + userStatus +
+                '}';
+    }
+
     @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
     private Set<Address> addresses;
 

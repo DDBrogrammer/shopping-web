@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,12 +24,12 @@ public class Cart {
     @Column(name = "id")
     private BigInteger id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
     @OneToMany(mappedBy="cart",fetch=FetchType.LAZY)
-    private Set<CartItem> cartItems;
+    private Set<CartItem> cartItems ;
 
     private BigDecimal subTotal;
 
