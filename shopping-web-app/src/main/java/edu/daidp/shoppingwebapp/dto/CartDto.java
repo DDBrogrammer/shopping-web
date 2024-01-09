@@ -1,6 +1,5 @@
 package edu.daidp.shoppingwebapp.dto;
 
-import edu.daidp.shoppingwebapp.entity.CartItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class CartDto {
     private BigInteger id;
 
 
-    private Set<CartItem> cartItems;
+    private Set<CartItemDto> cartItems;
 
     private BigDecimal subTotal;
 

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Set;
 
 @Entity
 @Table(name = "address")
@@ -22,6 +23,9 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private BigInteger id;
+
+    @OneToMany(mappedBy="address",fetch=FetchType.LAZY)
+    private Set<Order> orders;
 
     @Column(nullable = false)
     private String addressDescription;

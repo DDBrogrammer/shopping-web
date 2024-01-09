@@ -50,9 +50,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                                                req.requestMatchers(WHITE_LIST_URL)
                                                        .permitAll()
-                                                       .requestMatchers("/api/carts/**")
-                                                       .hasAnyRole(
-                                                               CUSTOMER.name())
+                                                       .requestMatchers("/api/carts/**","/api/orders/**")
+                                                       .hasAnyRole(CUSTOMER.name())
                                                        .anyRequest()
                                                        .authenticated()
                 )

@@ -24,6 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import static edu.daidp.shoppingwebapp.common.constant.UserStatus.ENABLE;
 
@@ -39,7 +42,8 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthenticationService(UserRepository repository, CartRepository cartRepository, TokenRepository tokenRepository,
+    public AuthenticationService(UserRepository repository, CartRepository cartRepository,
+                                 TokenRepository tokenRepository,
                                  PasswordEncoder passwordEncoder, JwtService jwtService,
                                  AuthenticationManager authenticationManager) {
         this.userRepository = repository;
@@ -61,7 +65,8 @@ public class AuthenticationService {
                 .build();
 
         User savedUser = userRepository.save(user);
-        cartRepository.save(Cart.builder().user(savedUser).build());
+        cartRepository.save(Cart.builder().subTotal(BigDecimal.ZERO).createAt(Timestamp.valueOf(
+                LocalDateTime.now())).user(savedUser).build());
         String jwtToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);

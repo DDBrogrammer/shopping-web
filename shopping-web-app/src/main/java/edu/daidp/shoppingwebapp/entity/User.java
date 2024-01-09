@@ -43,6 +43,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
     private Set<Address> addresses;
 
+    @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+    private Set<Order> orders;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

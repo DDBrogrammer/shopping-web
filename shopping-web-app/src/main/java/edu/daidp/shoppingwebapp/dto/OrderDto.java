@@ -1,7 +1,6 @@
-package edu.daidp.shoppingwebapp.entity;
+package edu.daidp.shoppingwebapp.dto;
 
 import edu.daidp.shoppingwebapp.common.constant.OrderStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,31 +10,18 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Entity
-@Table(name = "user_order")
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "addressId",nullable = true)
-    private Address address;
-
-    @OneToMany(mappedBy="order",fetch=FetchType.LAZY)
-    private Set<OrderItem> orderItems;
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class OrderDto {
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    private UserDto user;
 
     private String promo;
+
+    private Set<OrderItemDto> orderItems;
 
     private BigDecimal subTotal;
 
