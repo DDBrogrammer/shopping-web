@@ -1,19 +1,24 @@
 package edu.daidp.shoppingwebapp.controller;
 
+import edu.daidp.shoppingwebapp.common.constant.COMMON_CONSTANT;
+import edu.daidp.shoppingwebapp.common.exception.ApplicationResponse;
 import edu.daidp.shoppingwebapp.dto.AuthenticationRequestDto;
 import edu.daidp.shoppingwebapp.dto.AuthenticationResponseDto;
+import edu.daidp.shoppingwebapp.dto.OrderDto;
 import edu.daidp.shoppingwebapp.dto.RegisterRequestDto;
 import edu.daidp.shoppingwebapp.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -23,16 +28,22 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponseDto> register(
+  public ResponseEntity<ApplicationResponse<AuthenticationResponseDto> > register(
       @RequestBody RegisterRequestDto request
   ) {
-    return ResponseEntity.ok(service.register(request));
+    return ResponseEntity.ok(new ApplicationResponse<AuthenticationResponseDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                               COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                                                service.register(request), List.of()
+    ) );
   }
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponseDto> authenticate(
+  public ResponseEntity<ApplicationResponse<AuthenticationResponseDto>> authenticate(
       @RequestBody AuthenticationRequestDto request
   ) {
-    return ResponseEntity.ok(service.authenticate(request));
+    return ResponseEntity.ok(new ApplicationResponse<AuthenticationResponseDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                                                COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                                                service.authenticate(request), List.of()
+    ) );
   }
 
   @PostMapping("/refresh-token")
@@ -42,6 +53,5 @@ public class AuthenticationController {
   ) throws IOException {
     service.refreshToken(request, response);
   }
-
 
 }

@@ -32,7 +32,6 @@ public class CartItemMapper {
             typeMap = modelMapper.createTypeMap(CartItem.class,
                                                 CartItemDto.class);
         }
-       // typeMap.addMappings(mapper ->mapper.skip(CartItemDto::setProduct));
         CartItemDto cartItemDto = modelMapper.map(cartItem, CartItemDto.class);
         cartItemDto.setProduct(productMapper.toDto(cartItem.getProduct()));
         return cartItemDto;

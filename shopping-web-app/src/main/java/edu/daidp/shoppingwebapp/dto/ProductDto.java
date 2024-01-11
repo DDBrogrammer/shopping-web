@@ -48,9 +48,9 @@ public class ProductDto {
 
     private Timestamp publishedAt;
 
-    private Set<Photo> photos;
+    private Set<PhotoDto> photos;
 
     private Set<ProductCategory> productCategories;
 
-    private Set<Video> videos;
+    private Set<VideoDto> videos;
 }

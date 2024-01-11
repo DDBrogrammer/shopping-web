@@ -49,13 +49,13 @@ public class Product {
 
     private Timestamp publishedAt;
 
-    @OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="product",fetch=FetchType.EAGER)
     private Set<Photo> photos;
 
     @OneToMany(mappedBy="product",fetch=FetchType.LAZY)
     private Set<ProductCategory> productCategories;
 
-    @OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="product",fetch=FetchType.EAGER)
     private Set<Video> videos;
 
     @Override

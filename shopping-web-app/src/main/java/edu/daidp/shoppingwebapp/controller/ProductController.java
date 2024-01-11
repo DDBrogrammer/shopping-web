@@ -1,16 +1,16 @@
 package edu.daidp.shoppingwebapp.controller;
 
+import edu.daidp.shoppingwebapp.common.constant.COMMON_CONSTANT;
+import edu.daidp.shoppingwebapp.common.exception.ApplicationResponse;
+import edu.daidp.shoppingwebapp.common.exception.NoContentFoundException;
 import edu.daidp.shoppingwebapp.dto.ProductDto;
-import edu.daidp.shoppingwebapp.entity.Product;
 import edu.daidp.shoppingwebapp.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -24,10 +24,42 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<ProductDto>> retrieveCars(
+    public ResponseEntity<ApplicationResponse<Page<ProductDto>> > retrieveProducts(
             @RequestParam(required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         return productService.findAll(pageNumber, pageSize).map(cars -> ResponseEntity.status(HttpStatus.OK).
-                body(cars)).orElseGet(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(null));
+                body(new ApplicationResponse<Page<ProductDto>>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                               COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                               cars, List.of()
+
+                ))).orElseGet(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(null));
+    }
+
+    @PostMapping()
+    public ResponseEntity<ApplicationResponse<ProductDto> > saveProduct(@RequestBody ProductDto productDto) throws
+            NoContentFoundException {
+        return  ResponseEntity.status(HttpStatus.OK).
+                body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                               COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                               productService.save(productDto), List.of()));
+    }
+
+    @PutMapping()
+    public ResponseEntity<ApplicationResponse<ProductDto> > editProduct(@RequestBody ProductDto productDto) throws
+            NoContentFoundException {
+        return  ResponseEntity.status(HttpStatus.OK).
+                body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                         COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                         productService.save(productDto), List.of()));
+    }
+    @DeleteMapping()
+    public ResponseEntity<ApplicationResponse<ProductDto> > deleteProduct(@RequestParam Long productId) throws
+            NoContentFoundException {
+
+        return  ResponseEntity.status(HttpStatus.OK).
+                body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                         COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                         productService.deleteProduct(productId)
+                        , List.of()));
     }
 }

@@ -18,11 +18,12 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="productId", nullable=false)
-    private Product product;
+    private String name;
+    private String url;
 
-    private String description;
+    @ManyToOne
+    @JoinColumn(name="product_id", nullable=false)
+    private Product product;
 
     private String extension;
 

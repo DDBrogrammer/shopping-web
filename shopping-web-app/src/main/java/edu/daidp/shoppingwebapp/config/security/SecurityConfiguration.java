@@ -3,6 +3,7 @@ package edu.daidp.shoppingwebapp.config.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,11 +24,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            "/api/products/**",
-            "/api/addresses/",
+            "/api/addresses/**",
             "/api/tracking/**",
             "/v2/api-docs",
             "/v3/api-docs",
@@ -52,6 +51,15 @@ public class SecurityConfiguration {
                                                        .permitAll()
                                                        .requestMatchers("/api/carts/**","/api/orders/**")
                                                        .hasAnyRole(CUSTOMER.name())
+                                                       .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                                                       .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole(ADMIN.name())
+
+                                                       .requestMatchers(HttpMethod.GET, "/api/files/**").permitAll()
+                                                       .requestMatchers(HttpMethod.POST, "/api/files/**").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.PUT, "/api/files/**").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.DELETE, "/api/files/**").hasAnyRole(ADMIN.name())
                                                        .anyRequest()
                                                        .authenticated()
                 )
