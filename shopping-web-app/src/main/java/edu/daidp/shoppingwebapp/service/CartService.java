@@ -3,7 +3,7 @@ package edu.daidp.shoppingwebapp.service;
 import edu.daidp.shoppingwebapp.common.exception.DuplicatedDataException;
 import edu.daidp.shoppingwebapp.common.exception.NoContentFoundException;
 import edu.daidp.shoppingwebapp.common.exception.ProductOutOfStockException;
-import edu.daidp.shoppingwebapp.common.validate.CartValidator;
+import edu.daidp.shoppingwebapp.util.validate.CartValidator;
 import edu.daidp.shoppingwebapp.dto.CartDto;
 import edu.daidp.shoppingwebapp.dto.CartItemDto;
 import edu.daidp.shoppingwebapp.entity.Cart;

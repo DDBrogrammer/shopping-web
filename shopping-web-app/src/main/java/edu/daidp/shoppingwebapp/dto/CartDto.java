@@ -1,5 +1,6 @@
 package edu.daidp.shoppingwebapp.dto;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +19,9 @@ public class CartDto {
 
     private BigInteger id;
 
-
     private Set<CartItemDto> cartItems;
 
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$",message="Wrong subTotal format")
     private BigDecimal subTotal;
 
     private Timestamp createAt;

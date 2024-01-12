@@ -1,10 +1,6 @@
 package edu.daidp.shoppingwebapp.dto;
 
-import edu.daidp.shoppingwebapp.entity.Order;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,11 +25,11 @@ public class OrderItemDto {
     private String promo;
 
     private String sku;
-
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$", message = "Wrong price format")
     private BigDecimal price;
-
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$", message = "Wrong discount format")
     private BigDecimal discount;
-
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]+$", message = "Wrong discount format")
     private BigInteger quantity;
 
     private Timestamp createAt;

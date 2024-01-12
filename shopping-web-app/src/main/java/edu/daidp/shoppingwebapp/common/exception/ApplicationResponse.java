@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Builder
 public class ApplicationResponse<T> {
 
@@ -26,5 +26,22 @@ public class ApplicationResponse<T> {
     public ApplicationResponse(int statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
+    }
+
+    public ApplicationResponse(int statusCode, String message, T data, List<String> details) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.data = data;
+        this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationResponse{" +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", details=" + details +
+                '}';
     }
 }

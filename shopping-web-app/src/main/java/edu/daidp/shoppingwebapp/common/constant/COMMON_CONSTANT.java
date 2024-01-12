@@ -33,6 +33,19 @@ public class COMMON_CONSTANT {
             public static final String MESSAGE = "No data found";
 
         }
+        public static final class DUPLICATE_DATA {
+            public static final int CODE = 1200;
+
+            public static final String MESSAGE = "Duplicate data";
+
+        }
+
+        public static final class AUTHENTICATION_ERROR {
+            public static final int CODE = 1300;
+
+            public static final String MESSAGE = "Authentication error";
+
+        }
 
         public static final class DEFAULT_EXCEPTION {
             public static final int CODE = 1000;

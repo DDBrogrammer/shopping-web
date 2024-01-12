@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -49,8 +51,9 @@ public class ProductService {
 
     public ProductDto save(ProductDto productDto) throws NoContentFoundException {
         if (productDto.getId() == null) {
-            return productMapper.toDto(productRepository.save(productMapper.toEntity(productDto)));
-
+            Product tempProduct = productMapper.toEntity(productDto);
+            tempProduct.setCreateAt(Timestamp.valueOf(LocalDateTime.now()));
+            return productMapper.toDto(tempProduct);
         }
         Optional<Product> productOptional = productRepository.findById(productDto.getId());
         if (productOptional.isPresent()) {
@@ -70,15 +73,29 @@ public class ProductService {
         tempProduct.setDiscount(productDto.getDiscount());
         tempProduct.setQuantity(productDto.getQuantity());
         tempProduct.setOrigin(productDto.getOrigin());
+        tempProduct.setUpdateAt(Timestamp.valueOf(LocalDateTime.now()));
         return tempProduct;
     }
 
-    public ProductDto deleteProduct(Long productId) throws NoContentFoundException {
+    public boolean deleteProduct(Long productId) throws NoContentFoundException {
         Optional<Product> productOptional = productRepository.findById(BigInteger.valueOf(productId));
         if (productOptional.isEmpty()) {
             throw new NoContentFoundException("Product with id" + productId + " not exist");
         }
         productRepository.delete(productOptional.get());
-        return productMapper.toDto(productOptional.get());
+        return true;
+    }
+
+    public ProductDto findProductById(Long productId) throws NoContentFoundException {
+        Optional<Product> productOptional = productRepository.findById(BigInteger.valueOf(productId));
+        if (productOptional.isEmpty()) {
+            throw new NoContentFoundException("Product not found");
+
+        }
+        Product product = productOptional.get();
+        product.setPhotos(photoRepository.findPhotosByProduct(product));
+        product.setVideos(videoRepository.findVideosByProduct(product));
+        return productMapper.toDto(product);
+
     }
 }

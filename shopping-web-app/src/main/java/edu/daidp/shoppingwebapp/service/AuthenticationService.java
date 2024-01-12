@@ -4,6 +4,9 @@ package edu.daidp.shoppingwebapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.daidp.shoppingwebapp.common.constant.Role;
 import edu.daidp.shoppingwebapp.common.constant.TokenType;
+import edu.daidp.shoppingwebapp.common.exception.AuthenticationException;
+import edu.daidp.shoppingwebapp.common.exception.DuplicateDataException;
+import edu.daidp.shoppingwebapp.common.exception.NoContentFoundException;
 import edu.daidp.shoppingwebapp.config.security.JwtService;
 import edu.daidp.shoppingwebapp.dto.AuthenticationRequestDto;
 import edu.daidp.shoppingwebapp.dto.AuthenticationResponseDto;
@@ -16,10 +19,11 @@ import edu.daidp.shoppingwebapp.repository.TokenRepository;
 import edu.daidp.shoppingwebapp.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +31,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.Random;
 
+import static edu.daidp.shoppingwebapp.common.constant.UserStatus.DISABLE;
 import static edu.daidp.shoppingwebapp.common.constant.UserStatus.ENABLE;
 
 @Service
@@ -40,22 +47,23 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
-    @Autowired
     public AuthenticationService(UserRepository repository, CartRepository cartRepository,
                                  TokenRepository tokenRepository,
                                  PasswordEncoder passwordEncoder, JwtService jwtService,
-                                 AuthenticationManager authenticationManager) {
+                                 AuthenticationManager authenticationManager, EmailService emailService) {
         this.userRepository = repository;
         this.cartRepository = cartRepository;
         this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.emailService = emailService;
     }
 
-    public AuthenticationResponseDto register(RegisterRequestDto request) {
-        var user = User.builder().firstName(request.getFirstName()).middleName(request.getMiddleName())
+    public String register(RegisterRequestDto request) throws DuplicateDataException {
+        User user = User.builder().firstName(request.getFirstName()).middleName(request.getMiddleName())
                 .lastName(request.getLastName())
                 .phoneNo(request.getPhoneNo())
                 .userStatus(ENABLE)
@@ -63,33 +71,68 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.valueOf(request.getRole()))
                 .build();
+        try {  // Generate a random confirmation token and save it to the user
+            String confirmationToken = generateConfirmationToken();
+            // Build the confirmation link
+            String confirmationLink = buildConfirmationLink(request.getEmail(), confirmationToken);
+            // Send the confirmation email with the link
+            emailService.sendEmail(request.getEmail(), "ĐĂNG KÝ TÀI KHOẢN SHOPPING",
+                                   "Click vào đường dẫn để xác nhận tài khỏan: " + confirmationLink);
+            user.setConfirmationToken(confirmationToken);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        user.setUserStatus(DISABLE);
+        try {
+            User savedUser = userRepository.save(user);
+            cartRepository.save(Cart.builder().subTotal(BigDecimal.ZERO).createAt(Timestamp.valueOf(
+                    LocalDateTime.now())).user(savedUser).build());
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateDataException(e.getMessage());
+        } catch (Exception e) {
+            throw e;
+        }
 
-        User savedUser = userRepository.save(user);
-        cartRepository.save(Cart.builder().subTotal(BigDecimal.ZERO).createAt(Timestamp.valueOf(
-                LocalDateTime.now())).user(savedUser).build());
-        String jwtToken = jwtService.generateToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
-        saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponseDto.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+        return "CHECK EMAIL FOR REGISTER CONFIRMATION";
     }
 
-    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
+    private String generateConfirmationToken() {
+        int length = 20;
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz!@#$%&";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return passwordEncoder.encode(sb.toString());
+    }
+
+    private String buildConfirmationLink(String email, String confirmationToken) {
+        StringBuilder stringBuilder = new StringBuilder(
+                "http://localhost:8080/api/v1/auth/confirmation-endpoint?email=");
+        stringBuilder.append(email);
+        stringBuilder.append("&token=");
+        stringBuilder.append(confirmationToken);
+        return stringBuilder.toString();
+    }
+
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) throws AuthenticationException {
         try {
-            authenticationManager.authenticate(
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
                             request.getPassword()
                     )
             );
+            System.out.println(authentication);
         } catch (Exception e) {
-            System.out.println(e);
+            throw new AuthenticationException(e.getMessage());
         }
 
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
+        if (!user.isEnabled()) {
+            throw new AuthenticationException("Account Not Active");
+        }
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -97,9 +140,24 @@ public class AuthenticationService {
         return AuthenticationResponseDto.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .active(user.isEnabled())
                 .email(user.getEmail())
                 .role(user.getRole().name())
                 .build();
+    }
+
+    public boolean emailConfirm(String email, String token) throws NoContentFoundException {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new NoContentFoundException("Can't find user");
+        }
+        User user = userOptional.get();
+
+        if (user.getConfirmationToken().equals(token)) {
+            user.setUserStatus(ENABLE);
+            userRepository.save(user);
+            return true;
+        } else return false;
     }
 
     private void saveUserToken(User user, String jwtToken) {

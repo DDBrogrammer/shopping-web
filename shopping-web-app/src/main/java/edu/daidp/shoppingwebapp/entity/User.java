@@ -40,10 +40,12 @@ public class User implements UserDetails {
                 '}';
     }
 
-    @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+    private String confirmationToken;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Address> addresses;
 
-    @OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Order> orders;
 
     @Id
@@ -52,27 +54,27 @@ public class User implements UserDetails {
 
     @NotBlank(message = "firstName can't be blank")
     @Column(nullable = false)
-    private  String firstName;
+    private String firstName;
 
     @NotBlank(message = "middleName can't be blank")
     @Column(nullable = false)
-    private  String middleName;
+    private String middleName;
 
     @NotBlank(message = "lastName can't be blank")
     @Column(nullable = false)
-    private  String lastName;
+    private String lastName;
 
     @NotBlank(message = "phone number can't be blank")
-    @Column(unique = true,nullable = false)
-    private  String phoneNo;
+    @Column(unique = true, nullable = false)
+    private String phoneNo;
 
     @NotBlank(message = "email can't be blank")
-    @Column(name = "email",unique = true,nullable = false)
-    private  String email;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
     @NotBlank(message = "password can't be blank")
-    @Column(name = "password",nullable = false)
-    private  String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
@@ -80,6 +82,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
     @Override
@@ -114,7 +117,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return userStatus.equals(UserStatus.ENABLE);
     }
 
 

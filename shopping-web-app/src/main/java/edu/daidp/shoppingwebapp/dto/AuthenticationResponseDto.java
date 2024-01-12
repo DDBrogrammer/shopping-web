@@ -20,8 +20,6 @@ public class AuthenticationResponseDto {
     private String role;
 
     private String email;
-
-    private Long hubId;
-
+    private boolean active;
 
 }

@@ -24,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApplicationResponse<Page<ProductDto>> > retrieveProducts(
+    public ResponseEntity<ApplicationResponse<Page<ProductDto>>> retrieveProducts(
             @RequestParam(required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         return productService.findAll(pageNumber, pageSize).map(cars -> ResponseEntity.status(HttpStatus.OK).
@@ -35,31 +35,44 @@ public class ProductController {
                 ))).orElseGet(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(null));
     }
 
-    @PostMapping()
-    public ResponseEntity<ApplicationResponse<ProductDto> > saveProduct(@RequestBody ProductDto productDto) throws
-            NoContentFoundException {
-        return  ResponseEntity.status(HttpStatus.OK).
-                body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
-                                                               COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
-                                                               productService.save(productDto), List.of()));
+    @GetMapping("/{productId}")
+    public ResponseEntity<ApplicationResponse<ProductDto>> retrieveProduct(
+            @PathVariable Long productId
+    ) throws NoContentFoundException {
+        return
+                ResponseEntity.ok(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                                      COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                                      productService.findProductById(productId),
+                                                                      List.of()));
     }
 
-    @PutMapping()
-    public ResponseEntity<ApplicationResponse<ProductDto> > editProduct(@RequestBody ProductDto productDto) throws
+    @PostMapping()
+    public ResponseEntity<ApplicationResponse<ProductDto>> saveProduct(@RequestBody ProductDto productDto) throws
             NoContentFoundException {
-        return  ResponseEntity.status(HttpStatus.OK).
+        return ResponseEntity.status(HttpStatus.OK).
                 body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
                                                          COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
                                                          productService.save(productDto), List.of()));
     }
-    @DeleteMapping()
-    public ResponseEntity<ApplicationResponse<ProductDto> > deleteProduct(@RequestParam Long productId) throws
-            NoContentFoundException {
 
-        return  ResponseEntity.status(HttpStatus.OK).
+    @PutMapping()
+    public ResponseEntity<ApplicationResponse<ProductDto>> editProduct(@RequestBody ProductDto productDto) throws
+            NoContentFoundException {
+        return ResponseEntity.status(HttpStatus.OK).
                 body(new ApplicationResponse<ProductDto>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
                                                          COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
-                                                         productService.deleteProduct(productId)
+                                                         productService.save(productDto), List.of()));
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<ApplicationResponse<String>> deleteProduct(@PathVariable Long productId) throws
+            NoContentFoundException {
+
+        return ResponseEntity.status(HttpStatus.OK).
+                body(new ApplicationResponse<String>(COMMON_CONSTANT.APP_STATUS.SUCCESS.CODE,
+                                                     COMMON_CONSTANT.APP_STATUS.SUCCESS.MESSAGE,
+                                                     productService.deleteProduct(
+                                                             productId) ? "DELETE SUCCESS" : "DELETE FAILED"
                         , List.of()));
     }
 }

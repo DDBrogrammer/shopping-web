@@ -60,6 +60,11 @@ public class SecurityConfiguration {
                                                        .requestMatchers(HttpMethod.POST, "/api/files/**").hasAnyRole(ADMIN.name())
                                                        .requestMatchers(HttpMethod.PUT, "/api/files/**").hasAnyRole(ADMIN.name())
                                                        .requestMatchers(HttpMethod.DELETE, "/api/files/**").hasAnyRole(ADMIN.name())
+
+                                                       .requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole(ADMIN.name())
+                                                       .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole(ADMIN.name())
                                                        .anyRequest()
                                                        .authenticated()
                 )
