@@ -3,11 +3,13 @@ package edu.daidp.shoppingwebapp.controller;
 import edu.daidp.shoppingwebapp.common.constant.COMMON_CONSTANT;
 import edu.daidp.shoppingwebapp.common.exception.ApplicationResponse;
 import edu.daidp.shoppingwebapp.common.exception.NoContentFoundException;
+import edu.daidp.shoppingwebapp.common.meta_anotaion.IsAdmin;
 import edu.daidp.shoppingwebapp.dto.ProductDto;
 import edu.daidp.shoppingwebapp.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class ProductController {
     }
 
     @GetMapping()
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApplicationResponse<Page<ProductDto>>> retrieveProducts(
             @RequestParam(required = false, defaultValue = "0") Integer pageNumber,
             @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
@@ -36,6 +39,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApplicationResponse<ProductDto>> retrieveProduct(
             @PathVariable Long productId
     ) throws NoContentFoundException {
@@ -47,6 +51,8 @@ public class ProductController {
     }
 
     @PostMapping()
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @IsAdmin
     public ResponseEntity<ApplicationResponse<ProductDto>> saveProduct(@RequestBody ProductDto productDto) throws
             NoContentFoundException {
         return ResponseEntity.status(HttpStatus.OK).
@@ -56,6 +62,8 @@ public class ProductController {
     }
 
     @PutMapping()
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @IsAdmin
     public ResponseEntity<ApplicationResponse<ProductDto>> editProduct(@RequestBody ProductDto productDto) throws
             NoContentFoundException {
         return ResponseEntity.status(HttpStatus.OK).
@@ -65,6 +73,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @IsAdmin
     public ResponseEntity<ApplicationResponse<String>> deleteProduct(@PathVariable Long productId) throws
             NoContentFoundException {
 

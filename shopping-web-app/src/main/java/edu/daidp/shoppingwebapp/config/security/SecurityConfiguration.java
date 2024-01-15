@@ -3,7 +3,6 @@ package edu.daidp.shoppingwebapp.config.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,8 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static edu.daidp.shoppingwebapp.common.constant.Role.ADMIN;
-import static edu.daidp.shoppingwebapp.common.constant.Role.CUSTOMER;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -49,22 +46,22 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                                                req.requestMatchers(WHITE_LIST_URL)
                                                        .permitAll()
-                                                       .requestMatchers("/api/carts/**","/api/orders/**")
-                                                       .hasAnyRole(CUSTOMER.name())
-                                                       .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                                                       .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers("/api/carts/**","/api/orders/**")
+//                                                       .hasAnyRole(CUSTOMER.name())
+                                                       //.requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                                                       // .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole(ADMIN.name())
+                                                       // .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole(ADMIN.name())
+                                                       //.requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole(ADMIN.name())
 
-                                                       .requestMatchers(HttpMethod.GET, "/api/files/**").permitAll()
-                                                       .requestMatchers(HttpMethod.POST, "/api/files/**").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.PUT, "/api/files/**").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.DELETE, "/api/files/**").hasAnyRole(ADMIN.name())
+                                                       //.requestMatchers(HttpMethod.GET, "/api/files/**").permitAll()
+//                                                       .requestMatchers(HttpMethod.POST, "/api/files/**").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.PUT, "/api/files/**").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.DELETE, "/api/files/**").hasAnyRole(ADMIN.name())
 
-                                                       .requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole(ADMIN.name())
-                                                       .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.POST, "/api/users").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole(ADMIN.name())
+//                                                       .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole(ADMIN.name())
                                                        .anyRequest()
                                                        .authenticated()
                 )

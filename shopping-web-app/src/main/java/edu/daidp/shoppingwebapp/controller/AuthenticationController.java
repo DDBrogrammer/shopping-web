@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/register")
+  @PreAuthorize("permitAll()")
   public ResponseEntity<ApplicationResponse<String> > register(
       @RequestBody @Valid RegisterRequestDto request
   ) throws DuplicateDataException {
@@ -38,6 +40,7 @@ public class AuthenticationController {
     ) );
   }
   @PostMapping("/authenticate")
+  @PreAuthorize("permitAll()")
   public ResponseEntity<ApplicationResponse<AuthenticationResponseDto>> authenticate(
       @RequestBody AuthenticationRequestDto request
   ) throws AuthenticationException {
@@ -48,6 +51,7 @@ public class AuthenticationController {
   }
 
   @GetMapping("/confirmation-endpoint")
+  @PreAuthorize("permitAll()")
   public ResponseEntity<ApplicationResponse<String>> emailConfirm(
          @RequestParam String email,@RequestParam String token
   ) throws NoContentFoundException {
@@ -58,6 +62,7 @@ public class AuthenticationController {
   }
 
   @PostMapping("/refresh-token")
+  @PreAuthorize("permitAll()")
   public void refreshToken(
       HttpServletRequest request,
       HttpServletResponse response

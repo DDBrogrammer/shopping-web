@@ -12,6 +12,8 @@ import edu.daidp.shoppingwebapp.repository.CartRepository;
 import edu.daidp.shoppingwebapp.repository.UserRepository;
 import edu.daidp.shoppingwebapp.util.mapper.CartItemMapper;
 import edu.daidp.shoppingwebapp.util.mapper.CartMapper;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -40,7 +42,7 @@ public class CartService {
         this.cartItemMapper = cartItemMapper;
         this.cartValidator = cartValidator;
     }
-
+    @RolesAllowed("ROLE_CUSTOMER")
     public CartDto getCartByUserEmail(String userEmail) throws NoContentFoundException {
         Optional<Cart> cart = cartRepository.findCartByUser(userRepository.findByEmail(userEmail).get());
         List<Cart> carts = cartRepository.findAll();
@@ -49,7 +51,7 @@ public class CartService {
         }
         throw new NoContentFoundException("no cart found");
     }
-
+    @RolesAllowed("ROLE_CUSTOMER")
     public CartDto updateCart(CartDto newCartDto, String userEmail) throws NoContentFoundException,
             ProductOutOfStockException, DuplicatedDataException {
          if ( cartValidator.validateCartItem(newCartDto)){

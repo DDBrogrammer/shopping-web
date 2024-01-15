@@ -1,5 +1,6 @@
 package edu.daidp.shoppingwebapp.controller;
 
+import edu.daidp.shoppingwebapp.common.meta_anotaion.IsAdmin;
 import edu.daidp.shoppingwebapp.dto.FileInfoDto;
 import edu.daidp.shoppingwebapp.service.FilesStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -22,6 +24,8 @@ public class FilesController {
   FilesStorageService storageService;
 
   @PostMapping("/upload")
+ // @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @IsAdmin
   public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("productId") long productId ) {
     String message = "";
     try {
@@ -35,6 +39,7 @@ public class FilesController {
   }
 
   @GetMapping("/file")
+  @PreAuthorize("permitAll()")
   public ResponseEntity<List<FileInfoDto>> getListFiles(@RequestParam Long  productId) {
     List<FileInfoDto> fileInfoDtos = storageService.loadAll(productId).map(path -> {
       String filename = path.getFileName().toString();
@@ -46,6 +51,7 @@ public class FilesController {
   }
 
   @GetMapping("/file/{productId:.+}/{filename:.+}")
+  @PreAuthorize("permitAll()")
   public ResponseEntity<Resource> getFile(@PathVariable Long productId,@PathVariable String filename) {
     Resource file = storageService.load(productId,filename);
     return ResponseEntity.ok()
@@ -53,6 +59,8 @@ public class FilesController {
   }
 
   @DeleteMapping("/file/{productId:.+}/{filename:.+}")
+ // @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @IsAdmin
   public ResponseEntity<String> deleteFile(@PathVariable Long productId,@PathVariable String filename) {
     String message = "";
     try {
