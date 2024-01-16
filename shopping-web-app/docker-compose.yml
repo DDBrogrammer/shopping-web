@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # MySQL service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: daidp2403
+      MYSQL_DATABASE: shopping_web_db
+      MYSQL_USER: daidp
+      MYSQL_PASSWORD: daidp2403
+      MYSQL_DEFAULT_AUTH: 'mysql_native_password'
+    ports:
+      - "3307:3306"
+    networks:
+      - my-network
+
+  # Spring Boot application service
+  spring-app:
+    image: shopping-web-app-be-0.0.1:latest
+    container_name: shopping-web-app-be-container
+    command: ["sh", "-c", "sleep 10 && java -jar app.jar"]
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+    volumes:
+      - ./target/shopping-web-app-be-0.0.1-SNAPSHOT.jar:/app/app.jar
+
+networks:
+  my-network:
+   driver: bridge
