@@ -38,7 +38,6 @@ import static edu.daidp.shoppingwebapp.common.constant.UserStatus.DISABLE;
 import static edu.daidp.shoppingwebapp.common.constant.UserStatus.ENABLE;
 
 @Service
-
 public class AuthenticationService {
     private final UserRepository userRepository;
 
