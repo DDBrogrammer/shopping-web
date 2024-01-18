@@ -1,0 +1,555 @@
+{
+	"info": {
+		"_postman_id": "d3978d75-b54a-4f7a-8a0d-9337eded9d56",
+		"name": "SHOPPINNG_WEB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23509009"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetPageProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products?pageNumber=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPageProducts Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadProductFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ADMIN/Downloads/1701931510140.jfif"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/files/upload?productId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"files",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoadProductFile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ADMIN/Downloads/1701931510140.jfif"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/files/file?productId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"files",
+								"file"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveProductFile",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "PutProductFile",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products?productId=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetPageUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users?pageNumber=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ADMIN/Downloads/1701931510140.jfif"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/files/upload?productId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"files",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/userId=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"userId="
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authen",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Do\",\r\n    \"middleName\": \"Do\",\r\n    \"lastName\": \"Do\",\r\n    \"email\": \"zexaldai@gmail.com\",\r\n    \"phoneNo\": \"0961130526\",\r\n    \"password\": \"CUSTOMER\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"zexaldai@gmail.com\",\r\n  \"password\": \"daidp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CART",
+			"item": [
+				{
+					"name": "GetCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOTAxMDQwMDUzQHMuaGFudS5lZHUudm4iLCJpYXQiOjE3MDUyODYzMjMsImV4cCI6MTcwNTM3MjcyM30.3YMHYGEm18qiZ3qgaGXdZ305BR73txKz5ibyXvi2hW8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/carts/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carts",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZXhhbGRhaUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ3NjUyMzcsImV4cCI6MTcwNDg1MTYzN30.ezQ_lkFTumD-EAVkXj0A8G9MJuoqHcyfaqjk6v38ap0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 1,\r\n        \"cartItems\": [\r\n            {\r\n                \"id\": 152,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 5,\r\n                \"createAt\": \"2024-01-08T09:12:23.051+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 252,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:13:17.452+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 102,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:12:03.310+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 202,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:12:38.393+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 52,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:07:03.880+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:06:27.834+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 1,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:06:14.826+00:00\",\r\n                \"updateAt\": null\r\n            }\r\n        ],\r\n        \"subTotal\": 10890.0000,\r\n        \"createAt\": null,\r\n        \"updateAt\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/carts/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carts",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCart Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZXhhbGRhaUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ3NjUyMzcsImV4cCI6MTcwNDg1MTYzN30.ezQ_lkFTumD-EAVkXj0A8G9MJuoqHcyfaqjk6v38ap0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 1,\r\n        \"cartItems\": [\r\n            {\r\n                \"id\": 152,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 5,\r\n                \"createAt\": \"2024-01-08T09:12:23.051+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 252,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:13:17.452+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 102,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:12:03.310+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 202,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:12:38.393+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 52,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:07:03.880+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:06:27.834+00:00\",\r\n                \"updateAt\": null\r\n            },\r\n            {\r\n                \"id\": 1,\r\n                \"product\": {\r\n                    \"id\": 2,\r\n                    \"tittle\": \"TITTLE_1\",\r\n                    \"metaTitle\": \"META_TITLE_1\",\r\n                    \"slug\": \"SLUG_1\",\r\n                    \"summary\": \"SUMMARY\",\r\n                    \"sku\": \"SKU_1\",\r\n                    \"price\": 1000.00,\r\n                    \"discount\": 1.0,\r\n                    \"quantity\": 1,\r\n                    \"origin\": \"VIETNAM\",\r\n                    \"createAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"updateAt\": null,\r\n                    \"publishedAt\": \"2024-01-08T07:41:30.899+00:00\",\r\n                    \"photos\": [],\r\n                    \"productCategories\": [],\r\n                    \"videos\": []\r\n                },\r\n                \"price\": 1000.00,\r\n                \"discount\": 1.0,\r\n                \"quantity\": 1,\r\n                \"createAt\": \"2024-01-08T09:06:14.826+00:00\",\r\n                \"updateAt\": null\r\n            }\r\n        ],\r\n        \"subTotal\": 10890.0000,\r\n        \"createAt\": null,\r\n        \"updateAt\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/carts/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carts",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "CreateOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZXhhbGRhaUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ3ODk3MDQsImV4cCI6MTcwNDg3NjEwNH0.5NGRgsXCvnaXANp7k3_HpxJGsnXsFa6hYwznOn2eskc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/orders/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ConfirmOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/orders/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

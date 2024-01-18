@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -53,6 +55,7 @@ public class Product {
     private Set<Photo> photos;
 
     @OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ProductCategory> productCategories;
 
     @OneToMany(mappedBy="product",fetch=FetchType.EAGER)

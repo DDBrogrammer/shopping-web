@@ -1,8 +1,9 @@
 package edu.daidp.shoppingwebapp.config.data_src;
 
 
+import edu.daidp.shoppingwebapp.common.constant.ProductOrigin;
 import edu.daidp.shoppingwebapp.common.constant.Role;
-import edu.daidp.shoppingwebapp.entity.User;
+import edu.daidp.shoppingwebapp.entity.*;
 import edu.daidp.shoppingwebapp.repository.*;
 import edu.daidp.shoppingwebapp.service.ExternalApiService;
 import edu.daidp.shoppingwebapp.service.FilesStorageService;
@@ -10,6 +11,16 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Configuration
 public class DatasourceConfig {
@@ -70,16 +81,16 @@ public class DatasourceConfig {
 //        districtRepository.saveAll(districts);
 //        List<Ward> wards = externalApiService.getWardData();
 //        wardRepository.saveAll(wards);
-//
+
 //        Country countrySrc = countryRepository.findById(1l).get();
-//
+
 //        List<Province> provincesSrc = new ArrayList<>(provinceRepository.findAllByCountry(countrySrc));
 //        List<District> districtsSrc = provincesSrc.stream().map(districtRepository::findAllByProvince)
-//                .flatMap(Collection::stream).toList();
+//                .flatMap().toList();
 //
 //        List<Ward> wardSrc = districtsSrc.stream().map(wardRepository::findAllByDistrict)
-//                .flatMap(Collection::stream).toList();
-//
+//                .flatMap().toList();
+
 //        categoryRepository.saveAll(IntStream.range(0, 100)
 //                                           .mapToObj(i -> Category.builder().slug("SLUG_" + i)
 //                                                   .content("CONTENT_" + i)
@@ -135,7 +146,7 @@ public class DatasourceConfig {
 //        newCart.setSubTotal(subTotal);
 //        newCart.setCartItems(new HashSet<>(cartItemRepository.findAll()));
 //        cartRepository.save(newCart);
-
+//
 //        userRepository.save(
 //                User.builder().firstName("Do").middleName("Do").lastName("Vietnam").email("admin@gmail.com")
 //                        .phoneNo("0961130126").password("admin").role(Role.ADMIN).build());
